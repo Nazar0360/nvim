@@ -1,0 +1,6 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "global_map"
+    ]
+}
