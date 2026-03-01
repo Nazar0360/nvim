@@ -3,7 +3,16 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
-			local configs = require("nvim-treesitter.config")
+			-- Try the modern module name first
+			local ok, configs = pcall(require, "nvim-treesitter.configs")
+			if not ok then
+				-- Fallback for older versions
+				ok, configs = pcall(require, "nvim-treesitter.config")
+			end
+			if not ok then
+				vim.notify("nvim-treesitter not found", vim.log.levels.ERROR)
+				return
+			end
 
 			configs.setup({
 				ensure_installed = {
