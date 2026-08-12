@@ -70,3 +70,55 @@ global_map("n", "<leader>do", dap.step_over, { desc = "DAP: Step Over" })
 global_map("n", "<leader>di", dap.step_into, { desc = "DAP: Step Into" })
 global_map("n", "<leader>du", dap.step_out, { desc = "DAP: Step Out" })
 global_map("n", "<leader>dr", dap.repl.toggle, { desc = "DAP: Toggle REPL" })
+
+local function latex_build()
+  vim.cmd("write") -- save file
+  local file = vim.fn.expand("%:p")
+  local base = vim.fn.expand("%:r")
+  local cwd = vim.fn.expand("%:p:h")
+
+  vim.notify("Building LaTeX → .dvi ...", vim.log.levels.INFO)
+  local job = vim.fn.jobstart({
+    "latex", "-interaction=nonstopmode", "-synctex=1", file
+  }, {
+    cwd = cwd,
+    on_exit = function(_, code)
+      if code == 0 then
+        vim.notify("Converting .dvi → .pdf ...", vim.log.levels.INFO)
+        vim.fn.jobstart({
+          "dvipdf", base .. ".dvi"
+        }, {
+          cwd = cwd,
+          detach = true,   -- runs in background
+          on_exit = function(_, code2)
+            if code2 == 0 then
+              vim.schedule(function()
+                vim.notify("PDF ready: " .. base .. ".pdf", vim.log.levels.INFO)
+              end)
+            else
+              vim.schedule(function()
+                vim.notify("dvipdf conversion failed (exit " .. code2 .. ")", vim.log.levels.ERROR)
+              end)
+            end
+          end
+        })
+      else
+        vim.notify("LaTeX compilation failed", vim.log.levels.ERROR)
+      end
+    end,
+  })
+  if job <= 0 then vim.notify("Failed to start LaTeX job", vim.log.levels.ERROR) end
+end
+
+local function latex_view()
+  local pdf = vim.fn.expand("%:r") .. ".pdf"
+  if vim.fn.filereadable(pdf) == 1 then
+    vim.fn.jobstart({ "vivaldi", pdf }, { detach = true })
+  else
+    vim.notify("PDF not found. Build first with <leader>ll", vim.log.levels.WARN)
+  end
+end
+
+-- add mappings (your global_map helper already exists)
+global_map("n", "<leader>ll", latex_build, { desc = "LaTeX: build (latex -> dvipdf)" })
+global_map("n", "<leader>lv", latex_view, { desc = "LaTeX: view PDF" })
