@@ -16,6 +16,8 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 
+vim.opt.langmap = "йцукенгшщзхїфівапролджєячсмитьбю;qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕНГШЩЗХЇФІВАПРОЛДЖЄЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\\\"ZXCVBNM<>,ʼ~№#"
+
 require("config.lazy")
 require("config.keymaps")
 
