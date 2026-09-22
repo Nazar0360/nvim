@@ -11,10 +11,13 @@ vim.api.nvim_set_hl(0, "ColorColumn", {
 })
 
 vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 8 -- default
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
+
+vim.opt.spelllang = { 'en_us', 'uk', 'sk' }
+vim.opt.spell = true
 
 vim.opt.langmap = "йцукенгшщзхїфівапролджєячсмитьбю;qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕНГШЩЗХЇФІВАПРОЛДЖЄЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\\\"ZXCVBNM<>,ʼ~№#"
 
