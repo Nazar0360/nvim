@@ -23,4 +23,5 @@ vim.opt.langmap = "йцукенгшщзхїфівапролджєячсмить�
 
 require("config.lazy")
 require("config.keymaps")
+require("config.autocmds")
 
