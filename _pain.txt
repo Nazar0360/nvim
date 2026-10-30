@@ -1,0 +1,41 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   init.lua
+	modified:   lazy-lock.json
+	deleted:    lua/config/.luarc.json
+	deleted:    lua/config/autocmds.lua
+	deleted:    lua/config/keymaps.lua
+	deleted:    lua/config/lazy.lua
+	deleted:    lua/config/path_completion.lua
+	deleted:    lua/plugins/.luarc.json
+	deleted:    lua/plugins/alpha.lua
+	deleted:    lua/plugins/aw-watcher.lua
+	deleted:    lua/plugins/catppuccin.lua
+	deleted:    lua/plugins/cmp-path.lua
+	deleted:    lua/plugins/comment.lua.bak
+	deleted:    lua/plugins/completions.lua
+	deleted:    lua/plugins/debugging.lua
+	deleted:    lua/plugins/gitsigns.lua
+	deleted:    lua/plugins/lsp-config.lua
+	deleted:    lua/plugins/lualine.lua
+	deleted:    lua/plugins/markdown-preview.lua
+	deleted:    lua/plugins/neo-tree.lua
+	deleted:    lua/plugins/none-ls.lua
+	deleted:    lua/plugins/nvim-comment.lua
+	deleted:    lua/plugins/suda.lua
+	deleted:    lua/plugins/telescope.lua
+	deleted:    lua/plugins/treesitter.lua
+	deleted:    lua/plugins/vim-closer.lua
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	_undo_h/
+	lazy-lock.json.bak
+	pain.txt
+	plugin/
+
+no changes added to commit (use "git add" and/or "git commit -a")
