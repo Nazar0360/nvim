@@ -42,11 +42,22 @@ local on_attach = function(client, bufnr)
 
     -- Code actions and formatting
     buf_map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
-    buf_map("n", "<leader>gf", vim.lsp.buf.format, { desc = "LSP: Format Buffer" })
+    buf_map("n", "<leader>gf", function()
+        vim.lsp.buf.format({
+            formatting_options = {
+                tabSize = vim.bo.shiftwidth,
+                insertSpaces = vim.bo.expandtab,
+            },
+        })
+    end, { desc = "LSP: Format Buffer" })
     -- Diagnostic navigation and display
     buf_map("n", "<leader>e", vim.diagnostic.open_float, { desc = "LSP: Show Diagnostics in Float" })
-    buf_map("n", "[d", vim.diagnostic.goto_prev, { desc = "LSP: Go to Previous Diagnostic" })
-    buf_map("n", "]d", vim.diagnostic.goto_next, { desc = "LSP: Go to Next Diagnostic" })
+    buf_map("n", "[d", function ()
+        vim.diagnostic.jump({ count = -1})
+    end, { desc = "LSP: Go to Previous Diagnostic" })
+    buf_map("n", "]d", function ()
+        vim.diagnostic.jump({ count = 1})
+    end, { desc = "LSP: Go to Next Diagnostic" })
     buf_map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "LSP: Populate Location List with Diagnostics" })
 end
 
@@ -134,10 +145,16 @@ global_map("n", "<leader>lv", latex_view, { desc = "LaTeX: view PDF" })
 -- ====================
 -- UFO Mappings
 -- ====================
-global_map("n", "zR", require("ufo").openAllFolds)
-global_map("n", "zM", require("ufo").closeAllFolds)
-global_map("n", "zr", require("ufo").openFoldsExceptKinds)
-global_map("n", "zm", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+local ufo = require("ufo")
+
+global_map("n", "zR", ufo.openAllFolds)
+global_map("n", "zM", ufo.closeAllFolds)
+global_map("n", "zr", function ()
+    ufo.openFoldsExceptKinds({ "comment", "imports", "region" })
+end)
+global_map("n", "zm", function ()
+    ufo.closeFoldsWith(1)
+end) -- closeAllFolds == closeFoldsWith(0)
 global_map("n", "K", function()
     local winid = require("ufo").peekFoldedLinesUnderCursor()
     if not winid then

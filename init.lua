@@ -4,7 +4,7 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 -- vim.opt.linebreak = true
 -- vim.opt.breakindent = true
-vim.opt.colorcolumn = { 100 }
+vim.opt.colorcolumn = { 80 }
 vim.api.nvim_set_hl(0, "ColorColumn", {
   ctermbg = 235,
   bg   = "#242424",
